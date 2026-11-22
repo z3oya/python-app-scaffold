@@ -1,0 +1,9 @@
+[app]
+name = "PyApp"
+entry = "src/pyapp/__main__.py"
+src-root = "src"
+
+[dist]
+out = "dist"
+packages = ["numpy"]
+include = ["pyapp/*.pyd"]

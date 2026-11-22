@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyapp"
+version = "0.1.0"
+description = "Scaffold: src-layout app with ruff/mypy/uv dev flow and embeddable dist"
+requires-python = ">=3.14"
+dependencies = [
+    "numpy>=2.3",
+]
+
+[project.scripts]
+pyapp = "pyapp.app:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=9",
+    "mypy>=1.15",
+    "ruff>=0.9",
+    "cython>=3.1",
+    "setuptools>=80",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pyapp"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF", "PL"]
+
+[tool.ruff.lint.per-file-ignores]
+"tools/*" = ["PL"]  # vendored build script: structural limits relaxed
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+mypy_path = "src"
+packages = ["pyapp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
